@@ -17,17 +17,16 @@ const fileName = (id) => {
 };
 const frontUrl = `${IMG_BASE}/${IMG_PREFIX}front-face${IMG_VERSION?'.'+IMG_VERSION:''}.png`;
 const backUrl  = (id) => `${IMG_BASE}/${IMG_PREFIX}${fileName(id)}`;
-const bgUrl    = `${IMG_BASE}/${IMG_PREFIX}background-image${IMG_VERSION?'.'+IMG_VERSION:''}.png`;
 
 // ====== ゲーム設定 ======
 const GAME_CONFIG = {
-  TIME_LIMIT: 300,        // 5分（秒）
+  TIME_LIMIT: 420,        // 4分（420秒）
   TOTAL_CARDS: 32,
   TOTAL_PAIRS: 16,
   GRID_COLS: 8,
   GRID_ROWS: 4,
-  CARD_FLIP_DELAY: 700,   // ミスマッチ時の裏返し待機(ms)
-  TOTAL_IMAGES: 53       // 用意した画像の最大番号に合わせる（01〜16.png など）
+  CARD_FLIP_DELAY: 800,   // ミスマッチ時の裏返し待機(ms)
+  TOTAL_IMAGES: 59       // 用意した画像の最大番号に合わせる（01〜16.png など）
 };
 
 // ====== ユーティリティ ======
@@ -529,7 +528,7 @@ class RankingManager {
       name,
       pairs,
       time,
-      date: new Date().toLocaleDateString('ja-JP'),
+      date: new Date().toLocaleString('ja-JP'),
       score: pairs * 100 - time
     };
     let rankings = this.getRankingsLocal();
@@ -605,9 +604,8 @@ class RankingManager {
         : (score.date || '');
 
       html += `
-        <div class="ranking-item">
+        <div class="ranking-item" data-rank="${rank}">
           <div>
-            <strong>${rank}位</strong>
             <span style="margin-left:10px;">${escapeHtml(score.name)}</span>
             <span style="margin-left:10px;">${score.pairs}/${GAME_CONFIG.TOTAL_PAIRS}ペア</span>
           </div>
@@ -632,8 +630,6 @@ let gameController;
 document.addEventListener('DOMContentLoaded', () => {
   gameController = new GameController();
   console.log('神経衰弱ゲーム初期化完了');
-  // CSSの相対パスを無視して CloudFront の背景を強制適用
-  document.body.style.backgroundImage = `url('${bgUrl}')`;
 });
 
 
