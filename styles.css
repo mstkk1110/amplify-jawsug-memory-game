@@ -11,11 +11,11 @@
 }
 
 body {
-    font-family: 'Arial', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-    background: linear-gradient(135deg, #d2c9a4 0%, #b4ae8d 100%);
-    background-image: url('./images/background-image.v1.png');
+    font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    font-weight: 400;
+    background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%);
     min-height: 100vh;
-    color: #333;
+    color: #1a1a1a;
 }
 
 .countdown {
@@ -52,15 +52,16 @@ body {
 .game-header {
     text-align: center;
     margin-bottom: 30px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 4px solid #2563EB;
 }
 
 .game-header h1 {
     font-size: 2.5rem;
-    color: #4a5568;
+    color: #1a1a1a;
     margin-bottom: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     font-family: "Dela Gothic One", sans-serif;
@@ -77,21 +78,25 @@ body {
 }
 
 .start-button {
-    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    background: linear-gradient(45deg, #2563EB, #1D4ED8);
     color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    font-weight: bold;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 18px 40px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    min-height: 48px;
+    min-width: 120px;
 }
 
 .start-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(238, 90, 36, 0.6);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
 }
 
 .start-button:active {
@@ -106,12 +111,12 @@ body {
 
 .timer,
 .score {
-    background: rgba(74, 85, 104, 0.1);
+    background: rgba(37, 99, 235, 0.1);
     padding: 10px 20px;
     border-radius: 20px;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #4a5568;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #1a1a1a;
 }
 
 /* 名前入力欄スタイル */
@@ -123,23 +128,26 @@ body {
 
 .player-name-input label {
     font-weight: bold;
-    color: #4a5568;
-    font-size: 1.1rem;
+    color: #1a1a1a;
+    font-size: 1.2rem;
 }
 
 .player-name-input input {
-    padding: 10px 15px;
+    padding: 12px 18px;
     border: 2px solid #e2e8f0;
     border-radius: 20px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     outline: none;
     transition: all 0.3s ease;
     background: rgba(255, 255, 255, 0.9);
+    min-height: 48px;
 }
 
 .player-name-input input:focus {
-    border-color: #74b9ff;
-    box-shadow: 0 0 0 3px rgba(116, 185, 255, 0.2);
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    outline: 3px solid #2563EB;
+    outline-offset: 3px;
 }
 
 /* カードグリッドスタイル */
@@ -191,6 +199,7 @@ body {
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     overflow: hidden;
+    border: 3px solid #2c3e50;
 }
 
 .card-front {
@@ -215,8 +224,23 @@ body {
 }
 
 .card.matched {
-    opacity: 0.7;
+    opacity: 0.6;
     transform: scale(0.95);
+    border: 4px solid #27ae60;
+}
+
+.card.matched::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: #27ae60;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    pointer-events: none;
 }
 
 .card:hover:not(.flipped):not(.matched) {
@@ -226,17 +250,19 @@ body {
 
 /* ランキングセクション */
 .ranking-section {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 4px solid #2563EB;
 }
 
 .ranking-section h2 {
     text-align: center;
-    color: #4a5568;
+    color: #2563EB;
     margin-bottom: 20px;
     font-size: 1.8rem;
+    font-weight: 700;
 }
 
 .ranking-list {
@@ -250,24 +276,112 @@ body {
     align-items: center;
     padding: 15px;
     margin-bottom: 10px;
-    background: rgba(116, 185, 255, 0.1);
+    background: transparent;
     border-radius: 10px;
-    border-left: 4px solid #74b9ff;
+    border: 2px solid #e2e8f0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #1a1a1a;
+    gap: 0.75em;
+    font-weight: 400;
 }
 
+.ranking-item::before {
+    content: attr(data-rank);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.9em;
+    flex-shrink: 0;
+}
+
+/* 1位 - ゴールド */
 .ranking-item:first-child {
-    background: rgba(255, 215, 0, 0.2);
-    border-left-color: #ffd700;
+    background: rgba(255, 215, 0, 0.25);
+    border: 3px solid #FFD700;
+    font-weight: 700;
+    font-size: 1.15rem;
 }
 
+.ranking-item:first-child::before {
+    content: '🥇';
+    background: rgba(255, 215, 0, 0.3);
+    font-size: 1.3em;
+}
+
+/* 2位 - シルバー */
 .ranking-item:nth-child(2) {
-    background: rgba(192, 192, 192, 0.2);
-    border-left-color: #c0c0c0;
+    background: rgba(192, 192, 192, 0.25);
+    border: 3px solid #C0C0C0;
+    font-weight: 700;
+    font-size: 1.12rem;
 }
 
+.ranking-item:nth-child(2)::before {
+    content: '🥈';
+    background: rgba(192, 192, 192, 0.3);
+    font-size: 1.25em;
+}
+
+/* 3位 - ブロンズ */
 .ranking-item:nth-child(3) {
-    background: rgba(205, 127, 50, 0.2);
-    border-left-color: #cd7f32;
+    background: rgba(205, 127, 50, 0.25);
+    border: 3px solid #CD7F32;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.ranking-item:nth-child(3)::before {
+    content: '🥉';
+    background: rgba(205, 127, 50, 0.3);
+    font-size: 1.2em;
+}
+
+/* 4位以降 - シンプル */
+.ranking-item:nth-child(4)::before {
+    content: '4';
+    background: rgba(200, 200, 200, 0.15);
+    color: #666;
+}
+
+.ranking-item:nth-child(5)::before {
+    content: '5';
+    background: rgba(200, 200, 200, 0.15);
+    color: #666;
+}
+
+.ranking-item:nth-child(6)::before {
+    content: '6';
+    background: rgba(200, 200, 200, 0.15);
+    color: #666;
+}
+
+.ranking-item:nth-child(7)::before {
+    content: '7';
+    background: rgba(200, 200, 200, 0.15);
+    color: #666;
+}
+
+.ranking-item:nth-child(8)::before {
+    content: '8';
+    background: rgba(200, 200, 200, 0.15);
+    color: #666;
+}
+
+.ranking-item:nth-child(9)::before {
+    content: '9';
+    background: rgba(200, 200, 200, 0.15);
+    color: #666;
+}
+
+.ranking-item:nth-child(10)::before {
+    content: '10';
+    background: rgba(200, 200, 200, 0.15);
+    color: #666;
 }
 
 /* モーダルスタイル */
@@ -296,10 +410,11 @@ body {
     max-width: 500px;
     width: 90%;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border: 4px solid #2563EB;
 }
 
 .modal-content h2 {
-    color: #4a5568;
+    color: #2563EB;
     margin-bottom: 20px;
     font-size: 2rem;
 }
@@ -311,21 +426,25 @@ body {
 }
 
 .play-again-button {
-    background: linear-gradient(45deg, #00b894, #00a085);
+    background: linear-gradient(45deg, #FFA500, #FF8C00);
     color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    font-weight: bold;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 18px 40px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: 'Noto Sans JP', sans-serif;
     border-radius: 25px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 184, 148, 0.4);
+    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    min-height: 48px;
+    min-width: 120px;
 }
 
 .play-again-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 184, 148, 0.6);
+    box-shadow: 0 6px 20px rgba(255, 165, 0, 0.6);
 }
 
 /* レスポンシブデザイン */
@@ -429,6 +548,28 @@ body {
 .hidden {
     display: none !important;
   }
+
+/* フォーカス表示の強化 */
+button:focus,
+input:focus,
+.card:focus {
+  outline: 3px solid #2563EB;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.3);
+}
+
+/* アニメーション削減対応 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .card-inner {
+    transition: none;
+  }
+}
 
 /* ==== Responsive tidy-up: 8×4(横向き) / 4×8(縦向き) ==== */
 
