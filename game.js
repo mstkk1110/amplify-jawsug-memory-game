@@ -20,7 +20,7 @@ const backUrl  = (id) => `${IMG_BASE}/${IMG_PREFIX}${fileName(id)}`;
 
 // ====== ゲーム設定 ======
 const GAME_CONFIG = {
-  TIME_LIMIT: 420,        // 4分（420秒）
+  TIME_LIMIT: 240,        // 4分（240秒）
   TOTAL_CARDS: 32,
   TOTAL_PAIRS: 16,
   GRID_COLS: 8,
