@@ -20,10 +20,10 @@ const backUrl  = (id) => `${IMG_BASE}/${IMG_PREFIX}${fileName(id)}`;
 
 // ====== ゲーム設定 ======
 const GAME_CONFIG = {
-  TIME_LIMIT: 240,        // 4分（240秒）
-  TOTAL_CARDS: 32,
-  TOTAL_PAIRS: 16,
-  GRID_COLS: 8,
+  TIME_LIMIT: 180,        // 3分（180秒）
+  TOTAL_CARDS: 24,
+  TOTAL_PAIRS: 12,
+  GRID_COLS: 6,
   GRID_ROWS: 4,
   CARD_FLIP_DELAY: 800,   // ミスマッチ時の裏返し待機(ms)
   TOTAL_IMAGES: 57       // 用意した画像の最大番号（01〜57.png）
@@ -644,8 +644,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 端末の向きで列数/行数を決定
     const isLandscape = matchMedia('(orientation: landscape)').matches;
-    const cols = isLandscape ? 8 : 4;
-    const rows = isLandscape ? 4 : 8;
+    const cols = isLandscape ? 6 : 4;
+    const rows = isLandscape ? 4 : 6;
 
     // 現在の gap / padding を取得
     const cs = getComputedStyle(grid);

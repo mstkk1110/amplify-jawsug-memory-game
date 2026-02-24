@@ -157,24 +157,26 @@ body {
 
 .card-grid {
     display: grid;
-    align-content: start; /* ← 中央揃えだと上下に白が残りやすい */
-    grid-template-columns: repeat(8, 180px);
-    grid-template-rows: repeat(4, 240px);
-    gap: 15px;
+    align-content: start;
+    grid-template-columns: repeat(6, 1fr);
+    gap: clamp(10px, 2vw, 20px);
     justify-content: center;
-    padding: 20px;
+    padding: clamp(15px, 2.5vw, 30px);
     background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     backdrop-filter: blur(10px);
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 /* カードスタイル */
 .card {
-    width: 180px;
-    height: 240px;
+    width: 100%;
+    aspect-ratio: 3 / 4;
     position: relative;
     cursor: pointer;
     perspective: 1000px;
+    min-width: 80px;
 }
 
 .card-inner {
@@ -448,60 +450,31 @@ body {
 }
 
 /* レスポンシブデザイン */
-@media (max-width: 1600px) {
+@media (orientation: landscape) and (min-width: 768px) {
     .card-grid {
-        grid-template-columns: repeat(8, 160px);
-        grid-template-rows: repeat(4, 210px);
-        gap: 12px;
-    }
-
-    .card {
-        width: 160px;
-        height: 210px;
+        grid-template-columns: repeat(6, 1fr);
     }
 }
 
-@media (max-width: 1400px) {
+@media (orientation: portrait) {
     .card-grid {
-        grid-template-columns: repeat(8, 140px);
-        grid-template-rows: repeat(4, 180px);
-        gap: 10px;
-    }
-
-    .card {
-        width: 140px;
-        height: 180px;
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
-@media (max-width: 1200px) {
-    .card-grid {
-        grid-template-columns: repeat(4, 160px);
-        grid-template-rows: repeat(8, 210px);
-    }
-
-    .card {
-        width: 160px;
-        height: 210px;
-    }
-}
-
+/* タブレット・大型スマホ（768px以下） */
 @media (max-width: 768px) {
     .container {
         padding: 10px;
     }
 
     .game-header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     .game-controls {
         flex-direction: column;
         gap: 15px;
-        font-family: "Noto Sans JP", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 300;
-        font-style: normal;
     }
 
     .player-name-input {
@@ -515,32 +488,69 @@ body {
     }
 
     .card-grid {
-        grid-template-columns: repeat(4, 120px);
-        grid-template-rows: repeat(8, 160px);
-        gap: 8px;
+        gap: clamp(12px, 2.5vw, 18px);
+        padding: clamp(15px, 3vw, 25px);
     }
 
     .card {
-        width: 120px;
-        height: 160px;
+        min-width: 85px;
+    }
+
+    .timer,
+    .score {
+        font-size: 1.1rem;
+        padding: 8px 16px;
     }
 }
 
+/* スマホ（480px以下） */
 @media (max-width: 480px) {
+    .game-header h1 {
+        font-size: 1.5rem;
+    }
+
     .card-grid {
-        grid-template-columns: repeat(4, 100px);
-        grid-template-rows: repeat(8, 130px);
-        gap: 6px;
+        gap: clamp(10px, 2.2vw, 15px);
+        padding: clamp(12px, 2.5vw, 20px);
     }
 
     .card {
-        width: 100px;
-        height: 130px;
+        min-width: 75px;
     }
 
     .modal-content {
         padding: 20px;
         margin: 20px;
+    }
+
+    .timer,
+    .score {
+        font-size: 1rem;
+        padding: 6px 12px;
+    }
+
+    .card.matched::after {
+        font-size: 2.5rem;
+    }
+}
+
+/* 小型スマホ（360px以下） */
+@media (max-width: 360px) {
+    .card-grid {
+        gap: clamp(8px, 2vw, 12px);
+        padding: clamp(10px, 2vw, 15px);
+    }
+
+    .card {
+        min-width: 65px;
+    }
+
+    .game-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .card.matched::after {
+        font-size: 2rem;
     }
 }
 
@@ -571,80 +581,31 @@ input:focus,
   }
 }
 
-/* ==== Responsive tidy-up: 8×4(横向き) / 4×8(縦向き) ==== */
-
-/* まず既存の固定サイズを上書き（幅・高さの固定をやめる） */
-.card-grid {
-  display: grid;
-  /* 横向きは 8 列が基本 */
-  grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
-  gap: clamp(8px, 1.2vw, 16px);
-  justify-content: center;
-  padding: clamp(12px, 2vw, 24px);
+/* グリッドレイアウト用の変数（JavaScriptが動的に設定） */
+:root { 
+  --card-w: 100px;
+  --card-ratio: 0.75;
 }
-
-.card {
-  width: 100% !important;
-  height: auto !important;
-  aspect-ratio: 3 / 4; /* カードを縦長で一定比率に */
-  position: relative;
-  cursor: pointer;
-  perspective: 1000px;
-}
-
-/* スマホ/タブレットの縦向きは 4 列固定（＝4×8） */
-@media (orientation: portrait) {
-  .card-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-  }
-}
-
-/* レイアウト用の変数。JS が値を入れる */
-:root { --card-w: 100px; }
 
 /* グリッドは上寄せ＆中央寄せ */
 #card-grid {
   box-sizing: border-box;
   align-content: start;
   justify-content: center;
-}
-
-/* カードは計算された幅・比率で描画（flip用の中身はそのままでOK） */
-.card {
-  width: var(--card-w);
-  aspect-ratio: 3 / 4; /* お好みで 2.8/4〜3/4 程度に */
-}
-
-.card-inner, .card-front, .card-back {
-  width: 100%;
-  height: 100%;
-}
-
-/* ===== 行の固定高さを無効化し、カードはセル幅にフィット ===== */
-#card-grid {
-  /* 既存の grid-template-rows: repeat(..., xxxpx); を丸ごと無効化 */
   grid-template-rows: unset !important;
-  /* 以降は暗黙の行(implicit rows)にする */
   grid-auto-rows: auto !important;
-
-  /* 余白の出方を安定させる */
-  align-content: start;
-  justify-content: center;
 }
 
-/* カードはセル幅でサイズを決め、高さはアスペクト比で出す */
-.card {
-  width: 100% !important;
-  height: auto !important;
-  aspect-ratio: 3 / 4;  /* お好みで 2.9/4 〜 3/4 などに微調整可 */
-}
-
-/* 画像はカード内でぴったり埋まる */
-.card-inner, .card-front, .card-back {
+/* カード内部の要素 */
+.card-inner, 
+.card-front, 
+.card-back {
   width: 100%;
   height: 100%;
 }
-.card-front img, .card-back img {
+
+.card-front img, 
+.card-back img {
   width: 100%;
   height: 100%;
   object-fit: cover;
